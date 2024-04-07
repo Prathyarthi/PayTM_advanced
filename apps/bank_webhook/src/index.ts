@@ -2,6 +2,7 @@ import express from 'express'
 import db from '@repo/db/client'
 
 const app = express()
+app.use(express.json())
 
 app.post("/hdfcWebhook", async (req, res) => {
     //TODO: Add zod validation here?
@@ -18,7 +19,7 @@ app.post("/hdfcWebhook", async (req, res) => {
 
     try {
         await db.$transaction([
-            db.balance.update({
+            db.balance.updateMany({
                 where: {
                     userId: Number(paymentInformation.userId)
                 },
@@ -28,7 +29,7 @@ app.post("/hdfcWebhook", async (req, res) => {
                     }
                 }
             }),
-            db.onRampTransaction.update({
+            db.onRampTransaction.updateMany({
                 where: {
                     token: paymentInformation.token
                 },
