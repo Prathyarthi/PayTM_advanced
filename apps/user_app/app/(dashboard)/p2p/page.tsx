@@ -1,9 +1,7 @@
-import React from 'react'
+import { SendCard } from "../../../components/SendCard";
 
-function page() {
-  return (
-    <div>page</div>
-  )
+export default function () {
+    return <div className="w-full">
+        <SendCard />
+    </div>
 }
-
-export default page
